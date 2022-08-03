@@ -15,6 +15,11 @@ steps:
 #    versionSpec: '10.x'
 #  displayName: 'Install Node.js'
 
+- task: CmdLine@2
+  inputs:
+    script: 'npm --version'
+  displayName: 'Check Node.js Version'
+
 - script: |
     npm install
     npm run build
