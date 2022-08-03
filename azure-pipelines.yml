@@ -9,17 +9,31 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- name: npmVersion
+  value: '1.0'
+
 steps:
 #- task: NodeTool@0
 #  inputs:
 #    versionSpec: '10.x'
 #  displayName: 'Install Node.js'
 
-- task: CmdLine@2
-  inputs:
-    script: 'npm --version'
-  displayName: 'Check Node.js Version'
+#- task: CmdLine@2
+#  inputs:
+#    script: 'npm --version'
+#  displayName: 'Check Node.js Version'
 
+- script: |
+    echo ${{ variables.npmVersion }} 
+    echo $(npmVersion)
+  displayName: 'Initial NPM Value'
+- bash: '##vso[task.setvariable variable=npmVersion]npm --version'
+  displayName: Set new variable value
+- script: |
+    echo ${{ variables.npmVersion }} 
+    echo $(npmVersion)
+  displayName: 'Updated NPM Value'
 - script: |
     npm install
     npm run build
