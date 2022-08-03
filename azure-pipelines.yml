@@ -14,15 +14,15 @@ variables:
   value: '1.0'
 
 steps:
-#- task: NodeTool@0
-#  inputs:
-#    versionSpec: '10.x'
-#  displayName: 'Install Node.js'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
 
-#- task: CmdLine@2
-#  inputs:
-#    script: 'npm --version'
-#  displayName: 'Check Node.js Version'
+- task: CmdLine@2
+  inputs:
+    script: 'npm --version'
+  displayName: 'Check Node.js Version'
 
 - script: |
     echo ${{ variables.npmVersion }} 
