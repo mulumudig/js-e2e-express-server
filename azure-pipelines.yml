@@ -14,28 +14,32 @@ variables:
   value: '1.0'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+- script: |
+    echo ${{ variables.npmVersion }} 
+    echo $(npmVersion)
+  displayName: 'Initial NPM Value'
 
 - task: CmdLine@2
   inputs:
     script: 'npm --version'
   displayName: 'Check Node.js Version'
 
-- script: |
-    echo ${{ variables.npmVersion }} 
-    echo $(npmVersion)
-  displayName: 'Initial NPM Value'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+  
 - bash: | 
     echo "##vso[task.setvariable variable=npmVersion]$(npm --version)"
-  displayName: Set new variable value
+  displayName: 'Update the NPM Version on Variable'
+
 - script: |
     echo ${{ variables.npmVersion }} 
     echo $(npmVersion)
-  displayName: 'Updated NPM Value'
+  displayName: 'Updated NPM version at variable'
+
 - script: |
     npm install
+    echo $(npm --version)
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'Install NPM and build'
